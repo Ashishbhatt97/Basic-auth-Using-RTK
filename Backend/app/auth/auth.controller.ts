@@ -33,3 +33,12 @@ export const getUserDetails = asyncHandler(
     res.send(createResponse(result));
   }
 );
+
+export const refreshToken = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { refreshToken } = req.body;
+    const result = await userServices.refreshAccessTokenService(refreshToken);
+
+    res.send(createResponse(result));
+  }
+);

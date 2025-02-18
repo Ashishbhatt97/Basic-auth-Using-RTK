@@ -1,7 +1,10 @@
 import prisma from "../config/prismaClient";
 import { IUser } from "./auth.dto";
 import bcrypt from "bcryptjs";
-import { generateTokens } from "../common/services/generateTokens";
+import {
+  generateTokens,
+  refreshAccessToken,
+} from "../common/services/generateTokens";
 
 export const createUser = async (data: IUser) => {
   const isUserExists = await userExists(data.email);
@@ -93,6 +96,14 @@ export const getUserDetails = async (id: string) => {
   }
 
   const { password, ...rest } = result;
-
   return rest;
+};
+
+export const refreshAccessTokenService = (refreshToken: string) => {
+  if (!refreshToken) {
+    throw new Error("Refresh token not found");
+  }
+
+  const accessToken = refreshAccessToken(refreshToken);
+  return accessToken;
 };

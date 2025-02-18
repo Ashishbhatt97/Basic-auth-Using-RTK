@@ -21,5 +21,6 @@ router.post(
   catchError,
   authController.loginUser
 );
+router.post("/refresh", authController.refreshToken);
 
 export default router;

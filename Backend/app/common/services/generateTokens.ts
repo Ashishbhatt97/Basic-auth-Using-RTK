@@ -4,12 +4,12 @@ import prisma from "../../config/prismaClient";
 
 config();
 
-const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || "";
-const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET || "";
+export const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || "";
+export const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET || "";
 
 export const generateTokens = async (data: { id: string; email: string }) => {
   const accessToken = jwt.sign(data, accessTokenSecret, {
-    expiresIn: "1d",
+    expiresIn: "15m",
   });
   const refreshToken = jwt.sign(data, refreshTokenSecret, {
     expiresIn: "7d",
